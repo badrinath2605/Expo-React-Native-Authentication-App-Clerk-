@@ -1,11 +1,12 @@
 Expo React Native Authentication App (Clerk)
 
-Project Overview
-This project is a React Native mobile application built using Expo that implements real user authentication with Clerk.
+Project Overview :
+This project is a React Native mobile application built using Expo that implements real user authentication with Clerk. 
 The application demonstrates a production-style authentication flow, protected navigation, clean UI, and proper session handling
 The main focus of this project is real authentication and navigation, not a basic Expo demo app.
 
-Features
+
+Features:
 Real Authentication using Clerk
 Protected Routes
 Home Screen dispalyed after successful login
@@ -14,13 +15,18 @@ Logout that properly ends the session and redirects
 Navigation using Expo Router
 Clean, card-based UI
 
-Tech Stack
+
+
+Tech Stack:
 React Native
 Expo
 Expo Router
 Clerk Authentication(Expo SDK)
 
-Project Structure
+
+
+
+Project Structure:
 project-root/
 │
 ├── .env
@@ -29,44 +35,54 @@ project-root/
 ├── README.md
 │
 └── app/
-├── \_layout.tsx  
- ├── index.tsx  
- ├── sign-in.tsx  
- ├── sign-up.tsx  
- │
-└── (tabs)/
-├── \_layout.tsx  
- ├── home.tsx  
- └── profile.tsx
+    ├── _layout.tsx        
+    ├── index.tsx          
+    ├── sign-in.tsx        
+    ├── sign-up.tsx        
+    │
+    └── (tabs)/
+        ├── _layout.tsx    
+        ├── home.tsx        
+        └── profile.tsx    
 
-Environment Setup
+
+
+Environment Setup:
 create a .env file in the project root and the clerk key.
+
 
 Setup & Run Instructions:
 1)Install Dependencies
-'npm install'
+     'npm install'
 2)Configure Clerk
-create an application in the Clerk Dashboard
-Enable email & password authenticatoin
-Disable Email Verification during Sign-Up
-Copy the Publishable Key into .env
+     create an application in the Clerk Dashboard
+     Enable email & password authenticatoin
+     Disable Email Verification during Sign-Up
+     Copy the Publishable Key into .env
 3)Configure Expo go
-Install expo go on a mobile phone
-Create an account
-Login to that created account 4) Start the application
-'npx expo start'
-scan the QR code using Expo Go
+     Install expo go on a mobile phone
+     Create an account
+     Login to that created account 
+4) Start the application
+     'npx expo start'
+     scan the QR code using Expo Go
 
-Authentication Flow
+
+
+
+
+Authentication Flow:
 
 App Launch
-↓
+   ↓
 Auth Gate (index.tsx)
-↓
+   ↓
 If not signed in → Sign In
-↓
+   ↓
 If signed in → Home
-↓
+   ↓
 Profile → Logout
-↓
+   ↓
 Back to Sign In
+
+
