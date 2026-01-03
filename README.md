@@ -1,50 +1,72 @@
-# Welcome to your Expo app 👋
+Expo React Native Authentication App (Clerk)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Project Overview
+This project is a React Native mobile application built using Expo that implements real user authentication with Clerk.
+The application demonstrates a production-style authentication flow, protected navigation, clean UI, and proper session handling
+The main focus of this project is real authentication and navigation, not a basic Expo demo app.
 
-## Get started
+Features
+Real Authentication using Clerk
+Protected Routes
+Home Screen dispalyed after successful login
+Profile Screen would display User ID, Email address
+Logout that properly ends the session and redirects
+Navigation using Expo Router
+Clean, card-based UI
 
-1. Install dependencies
+Tech Stack
+React Native
+Expo
+Expo Router
+Clerk Authentication(Expo SDK)
 
-   ```bash
-   npm install
-   ```
+Project Structure
+project-root/
+│
+├── .env
+├── .gitignore
+├── package.json
+├── README.md
+│
+└── app/
+├── \_layout.tsx  
+ ├── index.tsx  
+ ├── sign-in.tsx  
+ ├── sign-up.tsx  
+ │
+└── (tabs)/
+├── \_layout.tsx  
+ ├── home.tsx  
+ └── profile.tsx
 
-2. Start the app
+Environment Setup
+create a .env file in the project root and the clerk key.
 
-   ```bash
-   npx expo start
-   ```
+Setup & Run Instructions:
+1)Install Dependencies
+'npm install'
+2)Configure Clerk
+create an application in the Clerk Dashboard
+Enable email & password authenticatoin
+Disable Email Verification during Sign-Up
+Copy the Publishable Key into .env
+3)Configure Expo go
+Install expo go on a mobile phone
+Create an account
+Login to that created account 4) Start the application
+'npx expo start'
+scan the QR code using Expo Go
 
-In the output, you'll find options to open the app in a
+Authentication Flow
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+App Launch
+↓
+Auth Gate (index.tsx)
+↓
+If not signed in → Sign In
+↓
+If signed in → Home
+↓
+Profile → Logout
+↓
+Back to Sign In
