@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+</head>
+<body>
+
+<pre>
 Expo React Native Authentication App (Clerk)
 
 Project Overview :
@@ -69,8 +78,6 @@ Setup & Run Instructions:
 
 
 
-
-
 Authentication Flow:
 
 App Launch
@@ -84,5 +91,7 @@ If signed in → Home
 Profile → Logout
    ↓
 Back to Sign In
+</pre>
 
-
+</body>
+</html>
