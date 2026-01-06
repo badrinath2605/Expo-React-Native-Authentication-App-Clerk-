@@ -25,7 +25,7 @@ export default function Home() {
         }}
       >
         <Text style={{ fontSize: 22, fontWeight: "600", marginBottom: 10 }}>
-          Welcome 👋
+          Welcome 
         </Text>
 
         <Text style={{ fontSize: 16, color: "#4b5563", marginBottom: 20 }}>

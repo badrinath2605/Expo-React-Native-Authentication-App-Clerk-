@@ -1,4 +1,9 @@
-import { ClerkLoaded, ClerkLoading, useSignIn } from "@clerk/clerk-expo";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  useOAuth,
+  useSignIn,
+} from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
 import React from "react";
 import {
@@ -11,13 +16,20 @@ import {
 
 export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn();
+
+
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+
   const router = useRouter();
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
+  // EMAIL + PASSWORD SIGN IN
   const onSignInPress = async () => {
-    if (!isLoaded) return;
+    if (!isLoaded || loading) return;
+    setLoading(true);
 
     try {
       const attempt = await signIn.create({
@@ -28,11 +40,27 @@ export default function SignInScreen() {
       if (attempt.status === "complete") {
         await setActive({ session: attempt.createdSessionId });
         router.replace("/");
-      } else {
-        console.log("Additional steps required:", attempt);
+      }
+    } catch (err: any) {
+      const message =
+        err?.errors?.[0]?.message || "Sign-in failed. Try again.";
+      alert(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // GOOGLE SIGN IN
+  const onGooglePress = async () => {
+    try {
+      const { createdSessionId, setActive } = await startOAuthFlow();
+
+      if (createdSessionId) {
+        await setActive!({ session: createdSessionId });
+        router.replace("/");
       }
     } catch (err) {
-      console.error("Sign-in error:", err);
+      console.error("Google sign-in error:", err);
     }
   };
 
@@ -44,21 +72,14 @@ export default function SignInScreen() {
 
       <ClerkLoaded>
         <View style={{ flex: 1, justifyContent: "center", padding: 20 }}>
-          <Text style={{ fontSize: 22, fontWeight: "600", marginBottom: 20 }}>
-            Sign In
-          </Text>
+          <Text style={{ fontSize: 22, marginBottom: 20 }}>Sign In</Text>
 
           <TextInput
             placeholder="Email"
             autoCapitalize="none"
             value={email}
             onChangeText={setEmail}
-            style={{
-              borderWidth: 1,
-              borderRadius: 6,
-              padding: 10,
-              marginBottom: 12,
-            }}
+            style={{ borderWidth: 1, padding: 10, marginBottom: 12 }}
           />
 
           <TextInput
@@ -66,42 +87,41 @@ export default function SignInScreen() {
             secureTextEntry
             value={password}
             onChangeText={setPassword}
-            style={{
-              borderWidth: 1,
-              borderRadius: 6,
-              padding: 10,
-              marginBottom: 20,
-            }}
+            style={{ borderWidth: 1, padding: 10, marginBottom: 20 }}
           />
 
           <TouchableOpacity
             onPress={onSignInPress}
+            disabled={loading}
             style={{
               backgroundColor: "#2563eb",
               padding: 12,
-              borderRadius: 6,
+              marginBottom: 12,
             }}
           >
-            <Text style={{ color: "white", textAlign: "center", fontSize: 16 }}>
-              Continue
+            <Text style={{ color: "white", textAlign: "center" }}>
+              {loading ? "Signing in..." : "Continue"}
             </Text>
           </TouchableOpacity>
 
-          {/* Sign-up link */}
-          <View
+          <TouchableOpacity
+            onPress={onGooglePress}
             style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              marginTop: 16,
+              backgroundColor: "#000",
+              padding: 12,
+              marginBottom: 20,
             }}
           >
-            <Text>Don’t have an account? </Text>
-            <Link href="/sign-up">
-              <Text style={{ color: "#2563eb", fontWeight: "600" }}>
-                Sign up
-              </Text>
-            </Link>
-          </View>
+            <Text style={{ color: "white", textAlign: "center" }}>
+              Continue with Google
+            </Text>
+          </TouchableOpacity>
+
+          <Link href="/sign-up">
+            <Text style={{ textAlign: "center" }}>
+              Create an account
+            </Text>
+          </Link>
         </View>
       </ClerkLoaded>
     </>
